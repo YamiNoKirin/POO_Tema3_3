@@ -42,32 +42,12 @@ namespace automoto {
 
     public:
         virtual void damage() {
-                int rand3 = rand() % 3;
-                switch (rand3) {
-                    case 0:
-                        mCorrosion = NONE;
-                        break;
-                    case 1:
-                        mCorrosion = PARTIAL;
-                        break;
-                    case 2:
-                        mCorrosion = TOTAL;
-                }
+            DamageComponent(mCorrosion);
 
-                std::for_each(mBend.begin(), mBend.end(), [](DamageLevel &dmg) {
-                    int rand3 = rand() % 3;
-                    switch (rand3) {
-                        case 0:
-                            dmg = NONE;
-                            break;
-                        case 1:
-                            dmg = PARTIAL;
-                            break;
-                        case 2:
-                            dmg = TOTAL;
-                    }
-                });
-            }
+            std::for_each(mBend.begin(), mBend.end(), [](DamageLevel &bend) {
+                DamageComponent(bend);
+            });
+        }
     };
 
     class FourWheelBody : public Body {
@@ -75,22 +55,19 @@ namespace automoto {
 
         static const int PartialBendMetal;
         static const int TotalBendMetal;
+        static const int PartialBendScrews;
+        static const int TotalBendScrews;
+        static const int PartialCorrodeScrews;
+        static const int TotalCorrodeScrews;
         static const int PartialCorrodeMetal;
         static const int TotalCorrodeMetal;
 
     private:
         PartSet getMissingForBend() override {
             PartSet partSet;
-            std::for_each(mBend.begin(), mBend.end(), [&partSet](const DamageLevel &dmg) {
-                switch (dmg) {
-                    case NONE:
-                        break;
-                    case PARTIAL:
-                        partSet.addMetal(PartialBendMetal);
-                        break;
-                    case TOTAL:
-                        partSet.addMetal(TotalBendMetal);
-                }
+            std::for_each(Body::mBend.begin(), Body::mBend.end(), [&partSet](const DamageLevel &bend) {
+                AddMaterial(bend, partSet, METAL, PartialBendMetal, TotalBendMetal);
+                AddMaterial(bend, partSet, SCREW, PartialBendScrews, TotalBendScrews);
             });
 
             return partSet;
@@ -99,16 +76,8 @@ namespace automoto {
         PartSet getMissingForCorrosion() override {
             PartSet partSet;
 
-            switch (Body::mCorrosion) {
-                case NONE:
-                    break;
-                case PARTIAL:
-                    partSet.addMetal(PartialCorrodeMetal);
-                    break;
-                case TOTAL:
-                    partSet.addMetal(TotalCorrodeMetal);
-                    break;
-            }
+            AddMaterial(Body::mCorrosion, partSet, METAL, PartialCorrodeMetal, TotalCorrodeMetal);
+            AddMaterial(Body::mCorrosion, partSet, SCREW, PartialCorrodeScrews, TotalCorrodeScrews);
 
             return partSet;
         }
@@ -124,6 +93,10 @@ namespace automoto {
     const int FourWheelBody::TotalBendMetal = 20;
     const int FourWheelBody::PartialCorrodeMetal = 5;
     const int FourWheelBody::TotalCorrodeMetal = 10;
+    const int FourWheelBody::PartialBendScrews = 50;
+    const int FourWheelBody::TotalBendScrews = 100;
+    const int FourWheelBody::PartialCorrodeScrews = 30;
+    const int FourWheelBody::TotalCorrodeScrews = 60;
 
     class TwoWheelBody : public Body {
         friend class AutoShop;
@@ -132,20 +105,17 @@ namespace automoto {
         static const int TotalBendMetal;
         static const int PartialCorrodeMetal;
         static const int TotalCorrodeMetal;
+        static const int PartialBendScrews;
+        static const int TotalBendScrews;
+        static const int PartialCorrodeScrews;
+        static const int TotalCorrodeScrews;
 
     private:
         PartSet getMissingForBend() override {
             PartSet partSet;
-            std::for_each(mBend.begin(), mBend.end(), [&partSet](const DamageLevel &dmg) {
-                switch (dmg) {
-                    case NONE:
-                        break;
-                    case PARTIAL:
-                        partSet.addMetal(PartialBendMetal);
-                        break;
-                    case TOTAL:
-                        partSet.addMetal(TotalBendMetal);
-                }
+            std::for_each(mBend.begin(), mBend.end(), [&partSet](const DamageLevel &bend) {
+                AddMaterial(bend, partSet, METAL, PartialBendMetal, TotalBendMetal);
+                AddMaterial(bend, partSet, SCREW, PartialBendScrews, TotalBendScrews);
             });
 
             return partSet;
@@ -154,16 +124,8 @@ namespace automoto {
         PartSet getMissingForCorrosion() override {
             PartSet partSet;
 
-            switch (Body::mCorrosion) {
-                case NONE:
-                    break;
-                case PARTIAL:
-                    partSet.addMetal(PartialCorrodeMetal);
-                    break;
-                case TOTAL:
-                    partSet.addMetal(TotalCorrodeMetal);
-                    break;
-            }
+            AddMaterial(Body::mCorrosion, partSet, METAL, PartialCorrodeMetal, TotalCorrodeMetal);
+            AddMaterial(Body::mCorrosion, partSet, SCREW, PartialCorrodeScrews, TotalCorrodeScrews);
 
             return partSet;
         }
@@ -178,6 +140,10 @@ namespace automoto {
     const int TwoWheelBody::TotalBendMetal = 10;
     const int TwoWheelBody::PartialCorrodeMetal = 3;
     const int TwoWheelBody::TotalCorrodeMetal = 5;
+    const int TwoWheelBody::PartialBendScrews = 50;
+    const int TwoWheelBody::TotalBendScrews = 100;
+    const int TwoWheelBody::PartialCorrodeScrews = 30;
+    const int TwoWheelBody::TotalCorrodeScrews = 60;
 }
 
 #endif //POO_TEMA3_3_BODY_H

@@ -27,17 +27,17 @@ Tipurile de probleme vor include cel putin:
         - Lant lipsa (bicicleta)
         - Defectiune capitala
 
-    - Motor:
+    - DONE: Motor:
         - Nivel ulei scazut (la moto si auto)
         - Carburator murdar (la auto)
         - Motor topit (la moto si auto)
 
-    - Directie:
+    - DONE: Directie:
         – Ghidon stramb (bicicleta, moto)
         - Roata stramba (toate)
         - Defectiune capitala (toate)
 
-    - Noxe:
+    - DONE: Noxe:
         – Vehiculul arde ulei (moto si auto)
         - Vehiculul este anterior anului 2000 (moto si auto)
 

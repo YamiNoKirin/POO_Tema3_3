@@ -12,21 +12,19 @@
 namespace automoto {
 //interface
     class Vehicle {
-        Steering steering;
 
-        void damage() {
-//            steering.damage();
-        }
+    public:
+        virtual void damage() = 0;
 
         PartSet getMissing() {
 
         }
 
-        //possibility of a crash
+        //possibility of getting damaged
         void use() {
-            int safeChance = rand() % 1000;
+            int safeChance = rand() % 10;
 
-            //0.1% chance of crash
+            //10% chance of getting damaged
             if (safeChance == 0) {
                 damage();
             }
