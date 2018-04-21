@@ -5,36 +5,70 @@ Atelier auto: Exista mai multe categorii de vehicule (motocicleta, bicicleta, au
 Precizari:
 
 Tipurile de probleme vor include cel putin:
+
     - Frane – placute uzate (fata/spate la un auto/moto)
+
     - Discuri uzate (oricare din 4 la un auto, oricare din 2 la moto)
+
     - Lant tocit (bicicleta)
+
     - Lant lipsa (bicicleta)
+
     - Defectiune capitala;
+
     - Motor:
+
         - Nivel ulei scazut (la moto si auto)
+
         - Carburator murdar (la auto)
+
         - Motor topit (la moto si auto)
+
+
     - Directie:
+
         – Ghidon stramb (bicicleta, moto)
+
         - Roata stramba (toate)
+
         - Defectiune capitala (toate)
+
+
     - Noxe:
+
         – Vehiculul arde ulei (moto si auto);
+
         - Vehiculul este anterior anului 2000 (moto si auto)
+
+
     - Caroserie (auto):
+
         – Caroserie corodata de rugina
+
         - Caroserie stramba (aripi stanga/dreapta, fata/spate, bara, capota):
+
             - foarte stramba sau asa-si-asa (pe fiecare componenta in parte)
 
+
 Solutiile presupun un consum de materiale:
+
     - Materialele sunt toate la bucata
+
     - Placutele de frana de pe spate difera de cele de pe fata
+
     - Placutele de frana sunt aferente fiecarei roti
+
     - Nivel ulei scazut, motor topit si vehiculul arde ulei toate presupun schimb de ulei
+
     - Fiecare problema are o solutie (mai putin defectiunea capitala)
+
     - Pot exista tipuri de materiale comune mai multor solutii
+
+
     - Toate solutii consuma suruburi (minim 5).
+
     - Vehiculul suporta operatiuni de traumatizare (e.g. Uzeaza discul de frana de pe spate dreapta sau Incepe sa arzi ulei)
+
     - Vehiculul odata conectat la tester (in atelier) se va putea autodiagnostica verificand fiecare componenta a sa si
       returnand lista de probleme.
 
