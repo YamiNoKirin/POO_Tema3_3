@@ -23,10 +23,10 @@ Tipurile de probleme vor include cel putin:
     - Frane:
         – placute uzate (fata/spate la un auto/moto)
         - Discuri uzate (oricare din 4 la un auto, oricare din 2 la moto)
+        - Lant tocit (bicicleta)
+        - Lant lipsa (bicicleta)
+        - Defectiune capitala
 
-    - Lant tocit (bicicleta)
-    - Lant lipsa (bicicleta)
-    - Defectiune capitala
     - Motor:
         - Nivel ulei scazut (la moto si auto)
         - Carburator murdar (la auto)
