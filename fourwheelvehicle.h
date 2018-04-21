@@ -5,4 +5,10 @@
 #ifndef POO_TEMA3_3_FOURWHEELVEHICLE_H
 #define POO_TEMA3_3_FOURWHEELVEHICLE_H
 
+namespace automoto {
+    class FourWheelVehicle {
+
+    };
+}
+
 #endif //POO_TEMA3_3_FOURWHEELVEHICLE_H

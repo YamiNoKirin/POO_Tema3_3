@@ -20,11 +20,13 @@ Atelier auto:
 
 Tipurile de probleme vor include cel putin:
 
-    - Frane – placute uzate (fata/spate la un auto/moto)
-    - Discuri uzate (oricare din 4 la un auto, oricare din 2 la moto)
+    - Frane:
+        – placute uzate (fata/spate la un auto/moto)
+        - Discuri uzate (oricare din 4 la un auto, oricare din 2 la moto)
+
     - Lant tocit (bicicleta)
     - Lant lipsa (bicicleta)
-    - Defectiune capitala;
+    - Defectiune capitala
     - Motor:
         - Nivel ulei scazut (la moto si auto)
         - Carburator murdar (la auto)
@@ -36,10 +38,10 @@ Tipurile de probleme vor include cel putin:
         - Defectiune capitala (toate)
 
     - Noxe:
-        – Vehiculul arde ulei (moto si auto);
+        – Vehiculul arde ulei (moto si auto)
         - Vehiculul este anterior anului 2000 (moto si auto)
 
-    - Caroserie (auto):
+    - DONE: Caroserie (auto):
         – Caroserie corodata de rugina
         - Caroserie stramba (aripi stanga/dreapta, fata/spate, bara, capota):
             - foarte stramba sau asa-si-asa (pe fiecare componenta in parte)
