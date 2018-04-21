@@ -6,8 +6,8 @@
 #define POO_TEMA3_3_VEHICLE_H
 
 #include <cstdlib>
-#include "Parts/steering.h"
-#include "Parts/body.h"
+#include "../Parts/steering.h"
+#include "../Parts/body.h"
 
 namespace automoto {
 //interface
