@@ -29,6 +29,8 @@ namespace automoto {
         int mPlastic;
 
     public:
+        static const PartSet HOPELESS;
+
         PartSet() {
             mScrew = 0;
             mMetal = 0;
@@ -42,22 +44,35 @@ namespace automoto {
         }
 
         void addScrew(int n) {
-            ++mScrew;
+            mScrew += n;
         }
 
         void addMetal(int n) {
-            ++mMetal;
+            mMetal += n;
         }
 
         void addPlastic(int n) {
-            ++mPlastic;
+            mPlastic += n;
         }
 
         int getCost() {
+            if (*this == HOPELESS) {
+                return -1;
+            }
+
             return mScrew * screwCost + mMetal * metalCost + mPlastic * plasticCost;
         }
 
+        bool operator==(const PartSet &other) const {
+            return mScrew == other.mScrew and mPlastic == other.mPlastic and mMetal == other.mMetal;
+        }
+
         PartSet &operator+=(const PartSet &other) {
+            if (*this == HOPELESS or other == HOPELESS) {
+                *this = HOPELESS;
+                return *this;
+            }
+
             mScrew += other.mScrew;
             mMetal += other.mMetal;
             mPlastic += other.mPlastic;
@@ -68,7 +83,7 @@ namespace automoto {
     const int PartSet::screwCost = 1;
     const int PartSet::metalCost = 20;
     const int PartSet::plasticCost = 5;
-    const PartSet HOPELESS = PartSet(-1, -1, -1);
+    const PartSet PartSet::HOPELESS = PartSet(-1, -1, -1);
 
     void AddMaterial(const DamageLevel &component, PartSet &partSet, const Material &material, const int &partialAdd,
                      const int &totalAdd) {

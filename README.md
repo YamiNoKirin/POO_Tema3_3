@@ -20,7 +20,7 @@ Atelier auto:
 
 Tipurile de probleme vor include cel putin:
 
-    - Frane:
+    - DONE: Frane:
         – placute uzate (fata/spate la un auto/moto)
         - Discuri uzate (oricare din 4 la un auto, oricare din 2 la moto)
         - Lant tocit (bicicleta)

@@ -8,16 +8,29 @@
 #include <cstdlib>
 #include "../Parts/steering.h"
 #include "../Parts/body.h"
+#include "../Parts/PartList.h"
 
 namespace automoto {
-//interface
     class Vehicle {
+        friend class AutoShop;
+
+    protected:
+        PartVector parts;
 
     public:
-        virtual void damage() = 0;
+        void damage() {
+            std::for_each(parts.begin(), parts.end(), [](PartPtr part) {
+                part->damage();
+            });
+        };
 
-        PartSet getMissing() {
+        PartSet getMissing() const {
+            PartSet partSet;
+            std::for_each(parts.begin(), parts.end(), [&partSet](const PartPtr part) {
+                partSet += part->getMissing();
+            });
 
+            return partSet;
         }
 
         //possibility of getting damaged

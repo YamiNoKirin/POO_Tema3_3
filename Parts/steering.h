@@ -8,9 +8,10 @@
 #include <vector>
 #include <algorithm>
 #include "partset.h"
+#include "PartList.h"
 
 namespace automoto {
-    class Steering {
+    class Steering : public Part {
         friend class AutoShop;
 
     protected:
@@ -31,16 +32,20 @@ namespace automoto {
         }
 
     public:
-        virtual void damage() {
+        void damage() override {
             std::for_each(mWheelBend.begin(), mWheelBend.end(), [](DamageLevel &wheel) {
                 DamageComponent(wheel);
             });
         }
 
-        virtual PartSet getMissing() = 0;
-
         void kaputify() {
             mKaput = true;
+        }
+
+        virtual void repair() {
+            std::for_each(mWheelBend.begin(), mWheelBend.end(), [](DamageLevel &wheel) {
+                wheel = NONE;
+            });
         }
     };
 
@@ -79,14 +84,20 @@ namespace automoto {
             DamageComponent(mHandleBend);
         }
 
-        PartSet getMissing() override {
+        PartSet getMissing() const override {
             if (mKaput) {
-                return HOPELESS;
+                return PartSet::HOPELESS;
             }
 
             PartSet partSet;
             AddMaterial(mHandleBend, partSet, SCREW, PartialHandleBendScrews, TotalHandleBendScrews);
             AddMaterial(mHandleBend, partSet, METAL, PartialHandleBendMetal, TotalHandleBendMetal);
+            return partSet;
+        }
+
+        void repair() override {
+            Steering::repair();
+            mHandleBend = NONE;
         }
     };
 
@@ -110,9 +121,9 @@ namespace automoto {
             }
         }
 
-        PartSet getMissing() override {
+        PartSet getMissing() const override {
             if (mKaput) {
-                return HOPELESS;
+                return PartSet::HOPELESS;
             }
 
             PartSet partSet;

@@ -12,30 +12,35 @@ namespace automoto {
 //singleton
     class AutoShop {
     private:
-        std::unique_ptr<AutoShop> mShopPtr;
+        static std::unique_ptr<AutoShop> mShopPtr;
 
         AutoShop() = default;
 
     public:
-        AutoShop &getInstance() {
-            if (mShopPtr == nullptr) {
-                mShopPtr = new AutoShop;
+        static AutoShop &getInstance() {
+            if (AutoShop::mShopPtr == nullptr) {
+                AutoShop::mShopPtr = std::make_unique<AutoShop>(AutoShop());
             }
 
-            return *mShopPtr;
+            return *AutoShop::mShopPtr;
         }
 
         //returns cost of repairs
         int assessDamage(const Vehicle &vehicle) const {
-
+            PartSet missing = vehicle.getMissing();
+            return missing.getCost();
         }
 
         //repairs a vehicle
         void repair(Vehicle &vehicle) const {
-
+            std::for_each(vehicle.parts.begin(), vehicle.parts.end(), [](PartPtr p) {
+                p->repair();
+            });
         }
 
     };
+
+    std::unique_ptr<AutoShop> AutoShop::mShopPtr = nullptr;
 }
 
 #endif //POO_TEMA3_3_AUTOSHOP_H

@@ -5,9 +5,16 @@
 #ifndef POO_TEMA3_3_MOTORVEHICLE_H
 #define POO_TEMA3_3_MOTORVEHICLE_H
 
-namespace automoto {
-    class MotorVehicle {
+#include "vehicle.h"
+#include "../Parts/engine.h"
+#include "../Parts/exhaust.h"
 
+namespace automoto {
+    class MotorVehicle : virtual public Vehicle{
+    public:
+        MotorVehicle() {
+            parts.emplace_back(std::make_shared<Exhaust>(Exhaust()));
+        }
     };
 }
 

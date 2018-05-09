@@ -10,7 +10,7 @@
 #include "partset.h"
 
 namespace automoto {
-    class Body {
+    class Body : public Part{
         friend class AutoShop;
 
     protected:
@@ -31,28 +31,33 @@ namespace automoto {
             mBend.assign(n, NONE);
         }
 
-        virtual PartSet getMissing() {
+        virtual PartSet getMissing() const override {
             PartSet missing = getMissingForCorrosion();
             missing += getMissingForBend();
             return missing;
         };
 
-        virtual PartSet getMissingForCorrosion() = 0;
-        virtual PartSet getMissingForBend() = 0;
+        virtual PartSet getMissingForCorrosion() const = 0;
+        virtual PartSet getMissingForBend() const = 0;
 
     public:
-        virtual void damage() {
+        void damage() override {
             DamageComponent(mCorrosion);
 
             std::for_each(mBend.begin(), mBend.end(), [](DamageLevel &bend) {
                 DamageComponent(bend);
             });
         }
+
+        virtual void repair() {
+            mCorrosion = NONE;
+            std::for_each(mBend.begin(), mBend.end(), [](DamageLevel &bend) {
+                bend = NONE;
+            });
+        }
     };
 
     class FourWheelBody : public Body {
-        friend class AutoShop;
-
         static const int PartialBendMetal;
         static const int TotalBendMetal;
         static const int PartialBendScrews;
@@ -63,7 +68,7 @@ namespace automoto {
         static const int TotalCorrodeMetal;
 
     private:
-        PartSet getMissingForBend() override {
+        PartSet getMissingForBend() const override {
             PartSet partSet;
             std::for_each(Body::mBend.begin(), Body::mBend.end(), [&partSet](const DamageLevel &bend) {
                 AddMaterial(bend, partSet, METAL, PartialBendMetal, TotalBendMetal);
@@ -73,7 +78,7 @@ namespace automoto {
             return partSet;
         }
 
-        PartSet getMissingForCorrosion() override {
+        PartSet getMissingForCorrosion() const override {
             PartSet partSet;
 
             AddMaterial(Body::mCorrosion, partSet, METAL, PartialCorrodeMetal, TotalCorrodeMetal);
@@ -111,7 +116,7 @@ namespace automoto {
         static const int TotalCorrodeScrews;
 
     private:
-        PartSet getMissingForBend() override {
+        PartSet getMissingForBend() const override {
             PartSet partSet;
             std::for_each(mBend.begin(), mBend.end(), [&partSet](const DamageLevel &bend) {
                 AddMaterial(bend, partSet, METAL, PartialBendMetal, TotalBendMetal);
@@ -121,7 +126,7 @@ namespace automoto {
             return partSet;
         }
 
-        PartSet getMissingForCorrosion() override {
+        PartSet getMissingForCorrosion() const override {
             PartSet partSet;
 
             AddMaterial(Body::mCorrosion, partSet, METAL, PartialCorrodeMetal, TotalCorrodeMetal);

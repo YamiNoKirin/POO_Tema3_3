@@ -8,9 +8,10 @@
 #include <cstdlib>
 #include <algorithm>
 #include "partset.h"
+#include "PartList.h"
 
 namespace automoto {
-    class Exhaust {
+    class Exhaust : public Part {
         static const int BurnsOilPlastic;
         static const int BurnsOilScrews;
 
@@ -29,11 +30,11 @@ namespace automoto {
             mIsOld = isOld;
         }
 
-        void damage() {
+        void damage() override {
             mBurnsOil = (bool) std::max((int) mBurnsOil, rand() % 2);
         }
 
-        PartSet getMissing() {
+        PartSet getMissing() const override {
             PartSet partSet;
             if (mBurnsOil) {
                 partSet.addPlastic(BurnsOilPlastic);
@@ -41,6 +42,11 @@ namespace automoto {
             }
 
             return partSet;
+        }
+
+        virtual void repair() {
+            mBurnsOil = false;
+            mIsOld = false;
         }
     };
 

@@ -9,9 +9,10 @@
 #include <ntdef.h>
 #include <algorithm>
 #include "partset.h"
+#include "PartList.h"
 
 namespace automoto {
-    class Engine {
+    class Engine : public Part {
     protected:
         bool mLowOil;
         bool mMelted;
@@ -26,12 +27,14 @@ namespace automoto {
             mMelted = melted;
         }
 
-        void damage() {
+        void damage() override {
             mLowOil = true;
             mMelted = (bool) std::max((int) mMelted, rand() % 2);
         }
 
-        virtual PartSet getMissing() = 0;
+        void repair() override {
+            mLowOil = false;
+        };
     };
 
     class MotoEngine: public Engine {
@@ -42,10 +45,10 @@ namespace automoto {
 
         MotoEngine(bool lowOil, bool melted) : Engine(lowOil, melted) {}
 
-        PartSet getMissing() override {
+        PartSet getMissing() const override {
             PartSet partSet;
             if (Engine::mMelted) {
-                return HOPELESS;
+                return PartSet::HOPELESS;
             }
 
             if (mLowOil) {
@@ -74,11 +77,11 @@ namespace automoto {
             mDirtyCarburator = dirtyCarburator;
         }
 
-        PartSet getMissing() {
+        PartSet getMissing() const override {
             PartSet partSet;
 
             if (mMelted) {
-                return HOPELESS;
+                return PartSet::HOPELESS;
             }
 
             if (mLowOil) {
@@ -90,6 +93,11 @@ namespace automoto {
             }
 
             return partSet;
+        }
+
+        void repair() override {
+            Engine::repair();
+            mDirtyCarburator = false;
         }
     };
 
